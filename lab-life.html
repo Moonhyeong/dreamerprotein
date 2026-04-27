@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lab Life | Protein Engineering & Regulation Lab @ KIST</title>
+<meta name="description" content="A scrapbook of life at the Seo Lab — long days at the bench, short trips to Sokcho, and the occasional cake.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&family=Caveat:wght@400;500;600&family=Gaegu:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  .lab-life-empty {
+    display: none;
+    text-align: center;
+    padding: 80px 24px 60px;
+    background: var(--bg-paper);
+    border-radius: 8px;
+    margin: 30px -36px;
+  }
+  .lab-life-empty .mark {
+    font-family: var(--hand);
+    font-size: 38px;
+    color: var(--ink-mute);
+    transform: rotate(-2deg);
+    display: inline-block;
+    margin-bottom: 14px;
+  }
+  .lab-life-empty .sub {
+    font-size: 13px;
+    color: var(--ink-mute);
+    font-style: italic;
+    line-height: 1.6;
+  }
+  .polaroid-board { visibility: hidden; }
+  .polaroid-board.ready { visibility: visible; }
+  .polaroid { cursor: zoom-in; }
+
+  /* Lightbox overlay */
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(8, 12, 20, 0.92);
+    z-index: 1000;
+    cursor: zoom-out;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    animation: fade-in 0.18s ease;
+  }
+  .lightbox.active { display: flex; }
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  .lightbox-image {
+    max-width: 92vw;
+    max-height: 82vh;
+    border-radius: 4px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+    cursor: default;
+    display: block;
+  }
+  .lightbox-meta {
+    position: absolute;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    color: white;
+    pointer-events: none;
+    max-width: 90vw;
+  }
+  .lightbox-caption {
+    font-family: var(--hand);
+    font-size: 26px;
+    line-height: 1.2;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+  }
+  .lightbox-date {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: rgba(255,255,255,0.7);
+    letter-spacing: 1.2px;
+    margin-top: 6px;
+  }
+  .lightbox-close {
+    position: absolute;
+    top: 22px;
+    right: 22px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.25);
+    background: rgba(255,255,255,0.06);
+    color: white;
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .lightbox-close:hover { background: rgba(255,255,255,0.18); }
+  body.lightbox-open { overflow: hidden; }
+</style>
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header class="topbar">
+  <div class="container nav-inner">
+    <a href="index.html" class="brand" style="text-decoration: none;">
+      <div class="brand-mark">P<span style="color:var(--accent); font-style:italic;">&amp;</span>R</div>
+      <div class="brand-text">
+        <div class="brand-en">Protein Engineering <span class="amp">&amp;</span> Regulation Lab</div>
+        <div class="brand-sub">KIST Gangneung</div>
+      </div>
+    </a>
+    <nav class="main-nav">
+      <a href="index.html">Home</a>
+      <a href="research.html">Research</a>
+      <a href="publications.html">Publications</a>
+      <a href="members.html">Members</a>
+      <a href="lab-life.html" class="active">Lab Life</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ============ PAGE HEADER ============ -->
+<div class="page-header">
+  <div class="breadcrumb"><a href="index.html">Home</a> &nbsp;/&nbsp; Lab Life</div>
+  <h1 class="page-title" style="font-family: var(--hand); font-size: 64px; transform: rotate(-1.5deg); display: inline-block;">Lab Life</h1>
+  <p class="page-lede">Long days at the bench, short trips to Sokcho, and the occasional cake. A scrapbook of the lab outside the manuscript.</p>
+</div>
+
+<main>
+
+  <!-- ============ POLAROID BOARD (populated by JS) ============ -->
+  <section class="block">
+    <div class="polaroid-board" id="polaroid-board"></div>
+
+    <!-- Empty state shown only when no photos load -->
+    <div class="lab-life-empty" id="lab-life-empty">
+      <div class="mark">✿ Memories will be added here ✿</div>
+      <div class="sub">Lab Life photos appear here as soon as they are uploaded.</div>
+    </div>
+
+    <div class="lab-life-footer" id="lab-life-footer" style="display: none;">
+      ✿ more memories to come ✿
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ LIGHTBOX (hidden by default, shown on photo click) ============ -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
+  <button class="lightbox-close" id="lightbox-close" aria-label="Close">×</button>
+  <img class="lightbox-image" id="lightbox-image" alt="">
+  <div class="lightbox-meta">
+    <div class="lightbox-caption" id="lightbox-caption"></div>
+    <div class="lightbox-date" id="lightbox-date"></div>
+  </div>
+</div>
+
+<!-- ============ FOOTER ============ -->
+<footer class="foot">
+  <div class="foot-inner">
+    <div class="foot-brand">
+      <h4>Protein Engineering &amp; Regulation Lab</h4>
+      <p>
+        KIST Gangneung Institute of Natural Products<br>
+        679 Saimdang-ro, Gangneung-si, Gangwon-do (25451)<br>
+        <a href="mailto:mhseo@kist.re.kr" style="color: var(--accent);">mhseo@kist.re.kr</a>
+      </p>
+    </div>
+    <div class="foot-col">
+      <h5>Explore</h5>
+      <ul>
+        <li><a href="research.html">Research</a></li>
+        <li><a href="publications.html">Publications</a></li>
+        <li><a href="members.html">Members</a></li>
+        <li><a href="lab-life.html">Lab Life</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h5>Contact</h5>
+      <ul>
+        <li>Office +82-33-650-3635</li>
+        <li>Lab +82-33-650-3636</li>
+        <li>Fax +82-33-650-3529</li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h5>Institutions</h5>
+      <ul>
+        <li><a href="https://gn.kist.re.kr" target="_blank" rel="noopener">KIST Gangneung ↗</a></li>
+        <li><a href="https://www.kist.re.kr" target="_blank" rel="noopener">KIST Main ↗</a></li>
+        <li><a href="https://scholar.google.com/citations?user=vtLxpeAAAAAJ" target="_blank" rel="noopener">Google Scholar ↗</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    © 2026 Seo Lab · Last updated April 2026
+  </div>
+</footer>
+
+<!-- ============ Lab Life manifest + dynamic loader + lightbox ============ -->
+<script src="assets/lab-life-photos.js"></script>
+<script>
+  /*
+    Reads window.LAB_LIFE_PHOTOS (defined in assets/lab-life-photos.js)
+    and creates one polaroid <figure> per entry whose photo file actually
+    exists. Clicking a polaroid opens the original image in a lightbox.
+  */
+  (function () {
+    'use strict';
+    var BASE = 'assets/images/lab-life/';
+
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, function (c) {
+        return ({
+          '&': '&amp;', '<': '&lt;', '>': '&gt;',
+          '"': '&quot;', "'": '&#39;'
+        })[c];
+      });
+    }
+
+    // ---------- Lightbox ----------
+    var lightbox = document.getElementById('lightbox');
+    var lightboxImg = document.getElementById('lightbox-image');
+    var lightboxCaption = document.getElementById('lightbox-caption');
+    var lightboxDate = document.getElementById('lightbox-date');
+    var lightboxClose = document.getElementById('lightbox-close');
+
+    function openLightbox(url, caption, date) {
+      lightboxImg.src = url;
+      lightboxImg.alt = caption || '';
+      lightboxCaption.textContent = caption || '';
+      lightboxDate.textContent = date || '';
+      lightbox.classList.add('active');
+      document.body.classList.add('lightbox-open');
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('active');
+      document.body.classList.remove('lightbox-open');
+      // Free the image so subsequent loads always re-trigger
+      setTimeout(function () { lightboxImg.src = ''; }, 200);
+    }
+
+    // Click anywhere on the overlay (except the image itself) to close
+    lightbox.addEventListener('click', function (e) {
+      if (e.target === lightboxImg) return;
+      closeLightbox();
+    });
+    lightboxClose.addEventListener('click', closeLightbox);
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && lightbox.classList.contains('active')) closeLightbox();
+    });
+
+    // ---------- Polaroid creation ----------
+    function createPolaroid(photo, url) {
+      var fig = document.createElement('figure');
+      fig.className = 'polaroid';
+      var color = photo.color ? ' ' + photo.color : '';
+      fig.innerHTML =
+        '<div class="polaroid-photo' + color + '" ' +
+             'style="background-image: url(\'' + url + '\');"></div>' +
+        '<figcaption class="polaroid-caption">' + escapeHtml(photo.caption || '') + '</figcaption>' +
+        '<div class="polaroid-date">' + escapeHtml(photo.date || '') + '</div>';
+      fig.addEventListener('click', function () {
+        openLightbox(url, photo.caption, photo.date);
+      });
+      return fig;
+    }
+
+    function init() {
+      var board = document.getElementById('polaroid-board');
+      var emptyState = document.getElementById('lab-life-empty');
+      var footer = document.getElementById('lab-life-footer');
+      var photos = window.LAB_LIFE_PHOTOS || [];
+      var total = photos.length;
+
+      function finalize(visibleCount) {
+        if (board) board.classList.add('ready');
+        if (visibleCount === 0) {
+          if (board) board.style.display = 'none';
+          if (emptyState) emptyState.style.display = 'block';
+          if (footer) footer.style.display = 'none';
+        } else {
+          if (footer) footer.style.display = 'block';
+        }
+      }
+
+      if (total === 0) { finalize(0); return; }
+
+      // Pre-build placeholder figures preserving order, populate as images
+      // confirm they exist. This keeps the polaroid order = manifest order.
+      var slots = new Array(total);
+      var processed = 0;
+      var visible = 0;
+
+      photos.forEach(function (photo, i) {
+        var url = BASE + photo.file;
+        var img = new Image();
+        img.onload = function () {
+          slots[i] = createPolaroid(photo, url);
+          visible++;
+          processed++;
+          if (processed === total) flush();
+        };
+        img.onerror = function () {
+          slots[i] = null;
+          processed++;
+          if (processed === total) flush();
+        };
+        img.src = url;
+      });
+
+      function flush() {
+        slots.forEach(function (node) { if (node) board.appendChild(node); });
+        finalize(visible);
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
+</script>
+
+</body>
+</html>

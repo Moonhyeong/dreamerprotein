@@ -1,0 +1,24 @@
+# Mockups (시안 비교 자료) — 로컬에만 보관, GitHub에는 업로드하지 않음
+# 향후 공개로 전환하려면 이 한 줄을 제거
+mockups/
+
+# OS / Editor temporary files
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+*.code-workspace
+
+# Local server / build artifacts
+*.log
+.cache/
+.tmp/
+node_modules/
+
+# Backup files
+*.bak
+*.orig
