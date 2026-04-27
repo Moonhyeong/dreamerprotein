@@ -2,6 +2,9 @@
 # 향후 공개로 전환하려면 이 한 줄을 제거
 mockups/
 
+# Internal work notes — local-only, not published
+STATUS.md
+
 # OS / Editor temporary files
 .DS_Store
 Thumbs.db
