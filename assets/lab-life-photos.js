@@ -33,13 +33,13 @@
 window.LAB_LIFE_PHOTOS = [
   {
     file:    "2026-01-Peptalk-poster-winner.jpg",
-    caption: "PepTalk poster winner",
+    caption: "2026 PepTalk 최우수 포스터상",
     date:    "Jan · 2026",
     color:   "gold"
   },
   {
     file:    "2025-11-NST-award.JPG",
-    caption: "NST award",
+    caption: "출연연 우수 연구성과 이사장상 수상",
     date:    "Nov · 2025",
     color:   "warm"
   },
@@ -51,13 +51,13 @@ window.LAB_LIFE_PHOTOS = [
   },
   {
     file:    "2025-06-kist-monthly-award.png",
-    caption: "KIST monthly award",
+    caption: "이달의 KIST인상 수상",
     date:    "Jun · 2025",
     color:   "cool"
   },
   {
     file:    "2025-02-ceremony.jpg",
-    caption: "KIST 연구개발우수팀상 수상",
+    caption: "KIST 우수연구개발팀상 수상",
     date:    "Feb · 2025",
     color:   "green"
   },
