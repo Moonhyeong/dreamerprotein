@@ -32,10 +32,28 @@
 
 window.LAB_LIFE_PHOTOS = [
   {
+    file:    "2026-01-Peptalk-poster-winner.jpg",
+    caption: "PepTalk poster winner",
+    date:    "Jan · 2026",
+    color:   "gold"
+  },
+  {
+    file:    "2025-11-NST-award.JPG",
+    caption: "NST award",
+    date:    "Nov · 2025",
+    color:   "warm"
+  },
+  {
     file:    "2025-11-lab-photo.jpg",
     caption: "Lab photo",
     date:    "Nov · 2025",
     color:   "gold"
+  },
+  {
+    file:    "2025-06-kist-monthly-award.png",
+    caption: "KIST monthly award",
+    date:    "Jun · 2025",
+    color:   "cool"
   },
   {
     file:    "2025-02-ceremony.jpg",
