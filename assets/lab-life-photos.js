@@ -32,10 +32,28 @@
 
 window.LAB_LIFE_PHOTOS = [
   {
+    file:    "2026-04-Lunch.jpg",
+    caption: "Lab lunch - Pizza!",
+    date:    "Apr · 2026",
+    color:   "warm"
+  },
+  {
     file:    "2026-01-Peptalk-poster-winner.jpg",
     caption: "2026 PepTalk 최우수 포스터상",
     date:    "Jan · 2026",
     color:   "gold"
+  },
+  {
+    file:    "2025-12-Dinner.jpg",
+    caption: "Goodbye 2025!",
+    date:    "Dec · 2025",
+    color:   "dusk"
+  },
+  {
+    file:    "2025-11-Lunch.jpg",
+    caption: "Lab lunch - 타코!",
+    date:    "Nov · 2025",
+    color:   "green"
   },
   {
     file:    "2025-11-NST-award.JPG",
