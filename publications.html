@@ -34,6 +34,23 @@
     transition: all 0.15s;
   }
   .pub-link:hover { border-color: var(--accent); background: var(--bg-alt); }
+  .award-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 10px;
+    padding: 5px 11px;
+    background: linear-gradient(135deg, #fef9e7 0%, #fef3c7 100%);
+    border: 1px solid #d4af37;
+    border-radius: 3px;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    color: #7a5a14;
+    letter-spacing: 0.6px;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  .award-badge .icon { font-size: 13px; }
 </style>
 </head>
 <body>
@@ -114,6 +131,9 @@
           <div class="pub-journal">Advanced Science</div>
           <div class="pub-cite">Adv. Sci. 12, 2406018 (2025)</div>
           <a href="https://onlinelibrary.wiley.com/doi/10.1002/advs.202406018" target="_blank" rel="noopener" class="pub-link">Journal page →</a>
+          <div style="margin-top: 6px;">
+            <span class="award-badge">🏆 Top 10% Most-Viewed Paper · Advanced Science (2024)</span>
+          </div>
           <div class="press-chips">
             <span class="press-chips-label">Press &amp; coverage:</span>
             <a href="https://www.dongascience.com/news.php?idx=68704" target="_blank" rel="noopener" class="press-chip">동아사이언스</a>
@@ -209,10 +229,62 @@
     </div>
   </section>
 
-  <!-- ============ Press & Media (moved up) ============ -->
+  <!-- ============ Awards & Recognition ============ -->
   <section class="block">
     <div class="section-head">
       <span class="section-num">02</span>
+      <h2 class="section-title">Awards &amp; Recognition</h2>
+      <span class="section-action">5 awards · 2025–2026</span>
+    </div>
+
+    <div class="pub-list">
+      <article class="pub-item">
+        <div class="pub-year-block">2026</div>
+        <div>
+          <h4 class="pub-title">🏆 Top 10% Most-Viewed Paper</h4>
+          <div class="pub-journal">Advanced Science · Wiley</div>
+          <div class="pub-cite">Ranked within the top 10% of most-viewed papers published in <em>Advanced Science</em> in 2024 — for "Massively Parallel Screening of TIR-Derived Peptides" (Adv. Sci. 2025).</div>
+        </div>
+      </article>
+      <article class="pub-item">
+        <div class="pub-year-block">2026</div>
+        <div>
+          <h4 class="pub-title">🥇 Best Poster Award</h4>
+          <div class="pub-journal">PepTalk 2026</div>
+          <div class="pub-cite">2026 PepTalk 최우수 포스터상</div>
+        </div>
+      </article>
+      <article class="pub-item">
+        <div class="pub-year-block">2025</div>
+        <div>
+          <h4 class="pub-title">🏅 NST Chairperson's Award for Outstanding Research</h4>
+          <div class="pub-journal">National Research Council of Science &amp; Technology (NST)</div>
+          <div class="pub-cite">출연(연) 우수 연구성과 NST 이사장상</div>
+        </div>
+      </article>
+      <article class="pub-item">
+        <div class="pub-year-block">2025</div>
+        <div>
+          <h4 class="pub-title">🌟 KIST Person of the Month</h4>
+          <div class="pub-journal">Korea Institute of Science and Technology (KIST)</div>
+          <div class="pub-cite">이달의 KIST인상</div>
+        </div>
+      </article>
+      <article class="pub-item">
+        <div class="pub-year-block">2025</div>
+        <div>
+          <h4 class="pub-title">🏆 Outstanding R&amp;D Team Award</h4>
+          <div class="pub-journal">Korea Institute of Science and Technology (KIST)</div>
+          <div class="pub-cite">KIST 우수 연구개발팀상</div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============ Press & Media ============ -->
+  <section class="block">
+    <div class="section-head">
+      <span class="section-num">03</span>
       <h2 class="section-title">Press &amp; Media</h2>
       <span class="section-action">News · interviews · broadcasts</span>
     </div>
@@ -340,7 +412,7 @@
   <!-- ============ All Publications ============ -->
   <section class="block">
     <div class="section-head">
-      <span class="section-num">03</span>
+      <span class="section-num">04</span>
       <h2 class="section-title">All Publications</h2>
       <span class="section-action">23 papers · 2007–2025</span>
     </div>
