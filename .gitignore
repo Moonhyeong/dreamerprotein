@@ -15,6 +15,7 @@ desktop.ini
 .idea/
 .vscode/
 *.code-workspace
+.claude/
 
 # Local server / build artifacts
 *.log
