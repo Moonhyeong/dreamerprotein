@@ -283,17 +283,6 @@ section.block { margin-bottom: 70px; scroll-margin-top: 90px; }
   max-width: 780px;
 }
 .hero-ko strong { color: var(--navy); font-weight: 600; }
-.pi-ko-bio {
-  margin: -38px 0 56px;
-  padding: 18px 22px;
-  background: var(--bg-alt);
-  border-radius: 8px;
-  border-left: 3px solid var(--accent);
-  font-size: 13.5px;
-  color: var(--ink-soft);
-  line-height: 1.8;
-}
-.pi-ko-bio strong { color: var(--navy); font-weight: 600; }
 
 /* ============ Research preview (Home) ============ */
 .research-preview {
