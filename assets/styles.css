@@ -272,6 +272,29 @@ section.block { margin-bottom: 70px; scroll-margin-top: 90px; }
 .hero-meta strong { color: var(--ink-soft); font-weight: 600; }
 .hero-meta a { color: var(--accent); }
 
+/* SEO — Korean intro lines (name-search visibility) */
+.hero-ko {
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line-soft);
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  line-height: 1.75;
+  max-width: 780px;
+}
+.hero-ko strong { color: var(--navy); font-weight: 600; }
+.pi-ko-bio {
+  margin: -38px 0 56px;
+  padding: 18px 22px;
+  background: var(--bg-alt);
+  border-radius: 8px;
+  border-left: 3px solid var(--accent);
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  line-height: 1.8;
+}
+.pi-ko-bio strong { color: var(--navy); font-weight: 600; }
+
 /* ============ Research preview (Home) ============ */
 .research-preview {
   display: grid;
