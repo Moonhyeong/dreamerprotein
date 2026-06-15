@@ -16,7 +16,15 @@
 
    Field reference:
    ----------------
-     file    — filename inside assets/images/lab-life/  (required)
+     file    — filename inside assets/images/lab-life/  (required*)
+     files   — ARRAY of filenames for a multi-photo memory (required*)
+               Use this instead of `file` when one memory has several
+               photos. The polaroid shows the first photo as its cover
+               with a small "▦ N" badge; clicking opens a lightbox with
+               ‹ › arrows (or ← → keys) to flip through all of them.
+               Example:
+                 files: ["2026-05-trip1.jpg", "2026-05-trip2.png"],
+               (*) Provide EITHER `file` OR `files`, not both.
      caption — handwritten-style text under the photo   (required)
      date    — small mono-font date label               (required)
      color   — placeholder gradient tone if file missing
@@ -31,6 +39,18 @@
    ============================================================ */
 
 window.LAB_LIFE_PHOTOS = [
+  {
+    files:   ["2026-05-KSBMB1.jpg", "2026-05-KSBMB2.png", "2026-05-KSBMB3.jpg"],
+    caption: "생화학분자생물학회 (KSBMB)",
+    date:    "May · 2026",
+    color:   "cool"
+  },
+  {
+    file:    "2026-05-Farewell.jpg",
+    caption: "김민혜 연구원 송별 식사",
+    date:    "May · 2026",
+    color:   "warm"
+  },
   {
     file:    "2026-04-Lunch.jpg",
     caption: "Lab lunch - Pizza!",

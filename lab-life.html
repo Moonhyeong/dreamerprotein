@@ -109,6 +109,61 @@
   }
   .lightbox-close:hover { background: rgba(255,255,255,0.18); }
   body.lightbox-open { overflow: hidden; }
+
+  /* Lightbox prev/next navigation (multi-photo memories) */
+  .lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.25);
+    background: rgba(255,255,255,0.08);
+    color: white;
+    font-size: 30px;
+    line-height: 1;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s;
+    z-index: 2;
+  }
+  .lightbox-nav:hover { background: rgba(255,255,255,0.2); }
+  .lightbox-prev { left: 24px; }
+  .lightbox-next { right: 24px; }
+  .lightbox-counter {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: rgba(255,255,255,0.7);
+    letter-spacing: 1.2px;
+    margin-top: 8px;
+  }
+
+  /* Gallery badge on polaroid cover (multi-photo memories) */
+  .polaroid-count {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(8, 12, 20, 0.62);
+    color: white;
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    padding: 3px 7px;
+    border-radius: 3px;
+    pointer-events: none;
+  }
+  @media (max-width: 700px) {
+    .lightbox-nav { width: 44px; height: 44px; font-size: 26px; }
+    .lightbox-prev { left: 10px; }
+    .lightbox-next { right: 10px; }
+  }
 </style>
 </head>
 <body>
@@ -163,10 +218,13 @@
 <!-- ============ LIGHTBOX (hidden by default, shown on photo click) ============ -->
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
   <button class="lightbox-close" id="lightbox-close" aria-label="Close">×</button>
+  <button class="lightbox-nav lightbox-prev" id="lightbox-prev" aria-label="Previous photo">‹</button>
   <img class="lightbox-image" id="lightbox-image" alt="">
+  <button class="lightbox-nav lightbox-next" id="lightbox-next" aria-label="Next photo">›</button>
   <div class="lightbox-meta">
     <div class="lightbox-caption" id="lightbox-caption"></div>
     <div class="lightbox-date" id="lightbox-date"></div>
+    <div class="lightbox-counter" id="lightbox-counter"></div>
   </div>
 </div>
 
@@ -233,20 +291,54 @@
       });
     }
 
-    // ---------- Lightbox ----------
+    // Normalize a manifest entry into an ordered list of filenames.
+    // Supports both `file` (string) and `files` (array) — provide either.
+    function fileListOf(photo) {
+      if (photo.files && photo.files.length) return photo.files.slice();
+      if (photo.file) return [photo.file];
+      return [];
+    }
+
+    // ---------- Lightbox (with carousel for multi-photo memories) ----------
     var lightbox = document.getElementById('lightbox');
     var lightboxImg = document.getElementById('lightbox-image');
     var lightboxCaption = document.getElementById('lightbox-caption');
     var lightboxDate = document.getElementById('lightbox-date');
     var lightboxClose = document.getElementById('lightbox-close');
+    var lightboxPrev = document.getElementById('lightbox-prev');
+    var lightboxNext = document.getElementById('lightbox-next');
+    var lightboxCounter = document.getElementById('lightbox-counter');
 
-    function openLightbox(url, caption, date) {
-      lightboxImg.src = url;
-      lightboxImg.alt = caption || '';
-      lightboxCaption.textContent = caption || '';
-      lightboxDate.textContent = date || '';
+    var gallery = [];      // current memory's image URLs
+    var galleryIndex = 0;  // currently shown index
+    var galleryCaption = '';
+    var galleryDate = '';
+
+    function renderSlide() {
+      lightboxImg.src = gallery[galleryIndex];
+      lightboxImg.alt = galleryCaption || '';
+      lightboxCaption.textContent = galleryCaption || '';
+      lightboxDate.textContent = galleryDate || '';
+      var multi = gallery.length > 1;
+      lightboxPrev.style.display = multi ? 'flex' : 'none';
+      lightboxNext.style.display = multi ? 'flex' : 'none';
+      lightboxCounter.textContent = multi ? (galleryIndex + 1) + ' / ' + gallery.length : '';
+    }
+
+    function openLightbox(urls, index, caption, date) {
+      gallery = urls;
+      galleryIndex = index || 0;
+      galleryCaption = caption || '';
+      galleryDate = date || '';
+      renderSlide();
       lightbox.classList.add('active');
       document.body.classList.add('lightbox-open');
+    }
+
+    function navigate(dir) {
+      if (gallery.length <= 1) return;
+      galleryIndex = (galleryIndex + dir + gallery.length) % gallery.length;
+      renderSlide();
     }
 
     function closeLightbox() {
@@ -256,28 +348,37 @@
       setTimeout(function () { lightboxImg.src = ''; }, 200);
     }
 
-    // Click anywhere on the overlay (except the image itself) to close
+    // Click overlay (but not the image or arrows) to close
     lightbox.addEventListener('click', function (e) {
-      if (e.target === lightboxImg) return;
+      if (e.target === lightboxImg || e.target === lightboxPrev || e.target === lightboxNext) return;
       closeLightbox();
     });
     lightboxClose.addEventListener('click', closeLightbox);
+    lightboxPrev.addEventListener('click', function (e) { e.stopPropagation(); navigate(-1); });
+    lightboxNext.addEventListener('click', function (e) { e.stopPropagation(); navigate(1); });
     document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && lightbox.classList.contains('active')) closeLightbox();
+      if (!lightbox.classList.contains('active')) return;
+      if (e.key === 'Escape') closeLightbox();
+      else if (e.key === 'ArrowLeft') navigate(-1);
+      else if (e.key === 'ArrowRight') navigate(1);
     });
 
     // ---------- Polaroid creation ----------
-    function createPolaroid(photo, url) {
+    function createPolaroid(photo, urls) {
       var fig = document.createElement('figure');
       fig.className = 'polaroid';
       var color = photo.color ? ' ' + photo.color : '';
+      var cover = urls[0];
+      var badge = urls.length > 1
+        ? '<div class="polaroid-count">▦ ' + urls.length + '</div>'
+        : '';
       fig.innerHTML =
         '<div class="polaroid-photo' + color + '" ' +
-             'style="background-image: url(\'' + url + '\');"></div>' +
+             'style="background-image: url(\'' + cover + '\');">' + badge + '</div>' +
         '<figcaption class="polaroid-caption">' + escapeHtml(photo.caption || '') + '</figcaption>' +
         '<div class="polaroid-date">' + escapeHtml(photo.date || '') + '</div>';
       fig.addEventListener('click', function () {
-        openLightbox(url, photo.caption, photo.date);
+        openLightbox(urls, 0, photo.caption, photo.date);
       });
       return fig;
     }
@@ -304,25 +405,41 @@
 
       // Pre-build placeholder figures preserving order, populate as images
       // confirm they exist. This keeps the polaroid order = manifest order.
+      // For multi-photo entries, every file is probed and only the ones that
+      // actually load are kept (order preserved).
       var slots = new Array(total);
       var processed = 0;
       var visible = 0;
 
-      photos.forEach(function (photo, i) {
-        var url = BASE + photo.file;
-        var img = new Image();
-        img.onload = function () {
-          slots[i] = createPolaroid(photo, url);
+      function finishEntry(i, existingUrls, photo) {
+        if (existingUrls.length > 0) {
+          slots[i] = createPolaroid(photo, existingUrls);
           visible++;
-          processed++;
-          if (processed === total) flush();
-        };
-        img.onerror = function () {
+        } else {
           slots[i] = null;
-          processed++;
-          if (processed === total) flush();
-        };
-        img.src = url;
+        }
+        processed++;
+        if (processed === total) flush();
+      }
+
+      photos.forEach(function (photo, i) {
+        var urls = fileListOf(photo).map(function (f) { return BASE + f; });
+        if (urls.length === 0) { finishEntry(i, [], photo); return; }
+
+        var resolved = new Array(urls.length);
+        var checked = 0;
+        urls.forEach(function (url, j) {
+          var img = new Image();
+          img.onload = function () { resolved[j] = url; tick(); };
+          img.onerror = function () { resolved[j] = null; tick(); };
+          img.src = url;
+        });
+        function tick() {
+          checked++;
+          if (checked === urls.length) {
+            finishEntry(i, resolved.filter(Boolean), photo);
+          }
+        }
       });
 
       function flush() {
