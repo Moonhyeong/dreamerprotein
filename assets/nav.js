@@ -53,4 +53,11 @@
   } else {
     init();
   }
+
+  // GoatCounter analytics (privacy-friendly, cookieless; auto-skips localhost)
+  window.goatcounter = { endpoint: 'https://moonhyeong.goatcounter.com/count' };
+  var gc = document.createElement('script');
+  gc.async = true;
+  gc.src = '//gc.zgo.at/count.js';
+  document.head.appendChild(gc);
 })();
