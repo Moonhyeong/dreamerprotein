@@ -1169,6 +1169,10 @@ section.block { margin-bottom: 70px; scroll-margin-top: 90px; }
   color: var(--ink-mute);
   font-style: italic;
 }
+.former-now .now-job {
+  display: block;
+  margin-top: 2px;
+}
 .former-pending {
   background: white;
   border: 1px dashed var(--line);
