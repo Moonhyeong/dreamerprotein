@@ -40,6 +40,12 @@
 
 window.LAB_LIFE_PHOTOS = [
   {
+    file:    "2026-07-lunch.jpg",
+    caption: "Lab lunch",
+    date:    "Jul · 2026",
+    color:   "green"
+  },
+  {
     files:   ["2026-05-KSBMB1.jpg", "2026-05-KSBMB2.png", "2026-05-KSBMB3.jpg"],
     caption: "생화학분자생물학회 (KSBMB)",
     date:    "May · 2026",
