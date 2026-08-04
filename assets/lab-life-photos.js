@@ -41,48 +41,48 @@
 window.LAB_LIFE_PHOTOS = [
   {
     file:    "2026-07-lunch.jpg",
-    caption: "Lab lunch",
+    caption: "신나라 박사·함연수 연구원 환영 식사",
     date:    "Jul · 2026",
     color:   "green"
   },
   {
-    files:   ["2026-05-KSBMB1.jpg", "2026-05-KSBMB2.png", "2026-05-KSBMB3.jpg"],
+    files:   ["2026-05-ksbmb1.jpg", "2026-05-ksbmb2.jpg", "2026-05-ksbmb3.jpg"],
     caption: "생화학분자생물학회 (KSBMB)",
     date:    "May · 2026",
     color:   "cool"
   },
   {
-    file:    "2026-05-Farewell.jpg",
+    file:    "2026-05-farewell.jpg",
     caption: "김민혜 연구원 송별 식사",
     date:    "May · 2026",
     color:   "warm"
   },
   {
-    file:    "2026-04-Lunch.jpg",
+    file:    "2026-04-lunch.jpg",
     caption: "Lab lunch - Pizza!",
     date:    "Apr · 2026",
     color:   "warm"
   },
   {
-    file:    "2026-01-Peptalk-poster-winner.jpg",
+    file:    "2026-01-peptalk-poster-winner.jpg",
     caption: "2026 PepTalk 최우수 포스터상",
     date:    "Jan · 2026",
     color:   "gold"
   },
   {
-    file:    "2025-12-Dinner.jpg",
+    file:    "2025-12-dinner.jpg",
     caption: "Goodbye 2025!",
     date:    "Dec · 2025",
     color:   "dusk"
   },
   {
-    file:    "2025-11-Lunch.jpg",
+    file:    "2025-11-lunch.jpg",
     caption: "Lab lunch - 타코!",
     date:    "Nov · 2025",
     color:   "green"
   },
   {
-    file:    "2025-11-NST-award.JPG",
+    file:    "2025-11-nst-award.jpg",
     caption: "출연연 우수 연구성과 이사장상 수상",
     date:    "Nov · 2025",
     color:   "warm"
@@ -94,7 +94,7 @@ window.LAB_LIFE_PHOTOS = [
     color:   "gold"
   },
   {
-    file:    "2025-06-kist-monthly-award.png",
+    file:    "2025-06-kist-monthly-award.jpg",
     caption: "이달의 KIST인상 수상",
     date:    "Jun · 2025",
     color:   "cool"
