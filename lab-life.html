@@ -14,7 +14,7 @@
 <meta property="og:url" content="https://moonhyeong.github.io/dreamerprotein/lab-life.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&family=Caveat:wght@400;500;600&family=Gaegu:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&family=Caveat:wght@400;500;600&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/styles.css">
 <style>
   .lab-life-empty {
@@ -291,6 +291,15 @@
       });
     }
 
+    // Wrap runs of Hangul in <span class="ko"> so CSS can scale them to
+    // match Caveat's visual size (Nanum Pen Script renders smaller).
+    var HANGUL_RUN = /[가-힣ㄱ-ㆎ][가-힣ㄱ-ㆎ\s·]*[가-힣ㄱ-ㆎ]|[가-힣ㄱ-ㆎ]/g;
+    function captionHtml(s) {
+      return escapeHtml(s).replace(HANGUL_RUN, function (m) {
+        return '<span class="ko">' + m + '</span>';
+      });
+    }
+
     // Normalize a manifest entry into an ordered list of filenames.
     // Supports both `file` (string) and `files` (array) — provide either.
     function fileListOf(photo) {
@@ -317,7 +326,7 @@
     function renderSlide() {
       lightboxImg.src = gallery[galleryIndex];
       lightboxImg.alt = galleryCaption || '';
-      lightboxCaption.textContent = galleryCaption || '';
+      lightboxCaption.innerHTML = captionHtml(galleryCaption || '');
       lightboxDate.textContent = galleryDate || '';
       var multi = gallery.length > 1;
       lightboxPrev.style.display = multi ? 'flex' : 'none';
@@ -375,7 +384,7 @@
       fig.innerHTML =
         '<div class="polaroid-photo' + color + '" ' +
              'style="background-image: url(\'' + cover + '\');">' + badge + '</div>' +
-        '<figcaption class="polaroid-caption">' + escapeHtml(photo.caption || '') + '</figcaption>' +
+        '<figcaption class="polaroid-caption">' + captionHtml(photo.caption || '') + '</figcaption>' +
         '<div class="polaroid-date">' + escapeHtml(photo.date || '') + '</div>';
       fig.addEventListener('click', function () {
         openLightbox(urls, 0, photo.caption, photo.date);

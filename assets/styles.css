@@ -21,7 +21,7 @@
   --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   --serif: 'Lora', Georgia, serif;
   --mono: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
-  --hand: 'Caveat', 'Gaegu', 'Patrick Hand', cursive;
+  --hand: 'Caveat', 'Nanum Pen Script', cursive;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -1314,6 +1314,10 @@ section.block { margin-bottom: 70px; scroll-margin-top: 90px; }
   line-height: 1.15;
   padding: 0 6px;
 }
+/* Nanum Pen Script renders smaller than Caveat at the same px, so Hangul runs
+   (wrapped in .ko by lab-life.html) are scaled up to match visually. */
+.polaroid-caption .ko,
+.lightbox-caption .ko { font-size: 1.15em; }
 .polaroid-date {
   font-family: var(--mono);
   font-size: 9.5px;
