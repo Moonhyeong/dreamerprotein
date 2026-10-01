@@ -6,13 +6,14 @@
      <div class="pi-photo" data-photo="seo">MS</div>
 
    How it works:
-   - Size variants live next to the base file:
-       name-200.jpg, name-240.jpg, name-360.jpg, name-480.jpg, name-720.jpg
+   - The folder holds one original per person (name.jpg / name.png).
+     Size variants generated from it live in the web/ subfolder:
+       web/name-200.jpg, web/name-240.jpg, ... web/name-720.jpg
      The loader measures the element's on-screen width x devicePixelRatio
      and requests the smallest variant that covers it — so the browser
      barely downscales and photos stay crisp at 100% zoom.
-   - If no variant exists, it falls back to trying name.{jpg,png,...}
-     like before, so plain single-file photos still work.
+   - If no variant exists, it falls back to the original in the main
+     folder (name.{jpg,png,...}), so a freshly dropped photo still shows.
    - When the user zooms in (devicePixelRatio grows), a larger variant
      is swapped in automatically (upgrade only, never downgrade).
    - When a photo is found, the element gets class "has-photo" — CSS
@@ -58,7 +59,7 @@
     var basePath = el.dataset.photoPath || 'assets/images/members';
 
     var size = neededSize(el);
-    var url = basePath + '/' + baseName + '-' + size + '.jpg';
+    var url = basePath + '/web/' + baseName + '-' + size + '.jpg';
     var img = new Image();
     img.onload = function () {
       setPhoto(el, url);
@@ -78,7 +79,7 @@
         var ns = neededSize(rec.el);
         if (ns > rec.size) {
           (function (rec, ns) {
-            var url = rec.basePath + '/' + rec.baseName + '-' + ns + '.jpg';
+            var url = rec.basePath + '/web/' + rec.baseName + '-' + ns + '.jpg';
             var img = new Image();
             img.onload = function () { setPhoto(rec.el, url); rec.size = ns; };
             img.src = url;
